@@ -52,11 +52,7 @@ const userSchema = new Schema({
 })
 
 userSchema.pre('save', async function(next) {
-    
-    // This will only has the password for our newly created user
-
-    if(!this.isModified('password')) return next()
-    // User updated password, code runs below
+    // This will only hash the password for our newly created user
     this.password = await bcrypt.hash(this.password, saltRounds)
     return next()
 })
